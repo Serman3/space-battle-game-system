@@ -1,0 +1,204 @@
+openapi: 3.0.0
+info:
+  title: Auth API
+  description: REST API для взаимодействия с Auth сервисом.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8082
+
+paths:
+  /v1/auth:
+    post:
+      summary: Регистрация пользователя
+      operationId: "register"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequestDto'
+      responses:
+        '201':
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /v1/auth/authorize:
+    post:
+      summary: Авторизация пользоватлея
+      operationId: "authorize"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtAuthorizationRequestDto'
+      responses:
+        '200':
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtAuthorizationResponseDto'
+
+  /v1/auth/refresh:
+    post:
+      summary: Рефреш токена доступа
+      operationId: "refresh"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtTokenRequestDto'
+      responses:
+        '200':
+          description: Успешная обновили jwt токен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtAuthorizationResponseDto'
+
+  /v1/auth/logout:
+    post:
+      summary: Разлогиниться
+      operationId: "logout"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtTokenRequestDto'
+      responses:
+        '204':
+          description: Успешная разлогинились
+
+  /v1/auth/organaizeSpacebattle:
+    post:
+      summary: Разлогиниться
+      operationId: "organizeSpacebattle"
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganaizeSpaceBattleRequestDto'
+      responses:
+        '200':
+          description: Успешно организовали космический бой для указанных пользователей
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+                example: 550e8400-e29b-41d4-a716-446655440000
+
+  /v1/auth/compensate-registration/{id}:
+    delete:
+      summary: Откат регистрации пользователя
+      operationId: "compensateRegistration"
+      tags:
+        - Auth
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Пользователь успешно удален
+
+components:
+  schemas:
+
+    RegistrationRequestDto:
+      type: object
+      required: [
+        username,
+        password
+      ]
+      properties:
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+
+    JwtAuthorizationResponseDto:
+      type: object
+      required: [
+        accessToken,
+        accessTokenExpiry,
+        refreshToken,
+        refreshTokenExpiry
+      ]
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMjUwNj...
+        accessTokenExpiry:
+          type: string
+          example: 2026-01-09T12:10:17.412416Z
+        refreshToken:
+          type: string
+          example: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMjUwNj...
+        refreshTokenExpiry:
+          type: string
+          example: 2026-01-09T12:10:17.412416Z
+
+    JwtAuthorizationRequestDto:
+      type: object
+      required: [
+        username,
+        password,
+        gameId
+      ]
+      properties:
+        username:
+          type: string
+          format: email
+        password:
+          type: string
+        gameId:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+
+    JwtTokenRequestDto:
+      type: object
+      required: [
+        token
+      ]
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMjUwNj...
+
+    OrganaizeSpaceBattleRequestDto:
+      type: object
+      required: [
+        users
+      ]
+      properties:
+        users:
+          type: array
+          items:
+            type: string
+          example:
+            - "active"
+            - "inactive"
+            - "pending"
