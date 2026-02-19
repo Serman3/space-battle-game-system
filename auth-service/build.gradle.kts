@@ -11,7 +11,6 @@ val versions = mapOf(
 	"javaxServletApiVersion" to "2.5",
 	"logbackClassicVersion" to "1.5.18",
 	"comGoogleCodeFindbugs" to "3.0.2",
-	"springCloudStarterOpenfeign" to "4.1.1",
 	"hibernateEnversVersion" to "6.4.4.Final",
 	"testContainersVersion" to "1.19.3",
 	"junitJupiterVersion" to "5.10.0",
@@ -20,26 +19,15 @@ val versions = mapOf(
 
 plugins {
 	idea
-	java
-	id("org.springframework.boot") version "3.5.0"
+	`java-library`
+	kotlin("jvm") version "2.3.10"
+	id("org.springframework.boot") version "3.2.0"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("maven-publish")
 	id("org.openapi.generator") version "7.13.0"
 }
 
-group = "ru.stoloto"
-version = "1.0.0-SNAPSHOT"
 description = "Persons auth domain service"
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
-	}
-}
-
-repositories {
-	mavenCentral()
-}
 
 dependencyManagement {
 	imports {
@@ -48,16 +36,19 @@ dependencyManagement {
 	}
 }
 
-configurations.all { resolutionStrategy.cacheChangingModulesFor(0, "seconds") }
-
 dependencies {
 	// SPRING
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions["springdocOpenapiStarterWebmvcUiVersion"]}")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${versions["springCloudStarterOpenfeign"]}")
+
+	//SECURITY
+	implementation("org.apache.commons:commons-lang3:3.20.0")
+	implementation("com.nimbusds:nimbus-jose-jwt:9.40")
 
 	// OBSERVABILITY
 	implementation("io.micrometer:micrometer-registry-prometheus")
@@ -73,9 +64,11 @@ dependencies {
 	// PERSISTENCE
 	implementation("org.hibernate.orm:hibernate-envers:${versions["hibernateEnversVersion"]}")
 	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-database-postgresql")
+	implementation("org.flywaydb:flyway-database-postgresql:10.4.1")
 
 	// HELPERS
+	api(project(":shared"))
+//	implementation(project(":shared"))
 	compileOnly("org.projectlombok:lombok")
 	compileOnly("org.mapstruct:mapstruct:${versions["mapstructVersion"]}")
 	compileOnly("com.google.code.findbugs:jsr305:${versions["comGoogleCodeFindbugs"]}")
@@ -83,6 +76,7 @@ dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:${versions["mapstructVersion"]}")
 	implementation("javax.validation:validation-api:${versions["javaxValidationApiVersion"]}")
 	implementation("javax.annotation:javax.annotation-api:${versions["javaxAnnotationApiVersion"]}")
+	implementation("org.modelmapper:modelmapper:3.2.0")
 
 	// TEST
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -116,7 +110,7 @@ foundSpecifications.forEach { specFile ->
 
 	val taskName = buildGenerateApiTaskName(specFile.nameWithoutExtension)
 	logger.lifecycle("Register task ${taskName} from ${ourDir.get()}")
-	val basePackage = "net.proselyte.${packageName}"
+	val basePackage = "net.otus.${packageName}"
 
 	tasks.register(taskName, GenerateTask::class) {
 		generatorName.set("spring")
@@ -284,7 +278,7 @@ publishing {
 
 				create<MavenPublication>("publish${name.replaceFirstChar(Char::uppercase)}Jar") {
 					artifact(jarFile)
-					groupId = "net.proselyte"
+					groupId = "net.otus"
 					artifactId = jarBaseName
 					version = "1.0.0-SNAPSHOT"
 
