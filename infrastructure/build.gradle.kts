@@ -19,8 +19,9 @@ val versions = mapOf(
 
 plugins {
 	idea
-	`java-library`
-	kotlin("jvm") version "2.3.10"
+	java
+	//`java-library`
+	//kotlin("jvm") version "2.3.10"
 	id("org.springframework.boot") version "3.2.0"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("maven-publish")
@@ -67,8 +68,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-database-postgresql:10.4.1")
 
 	// HELPERS
-	api(project(":shared"))
-//	implementation(project(":shared"))
+//	api(project(":shared"))
+	implementation(project(":shared"))
 	compileOnly("org.projectlombok:lombok")
 	compileOnly("org.mapstruct:mapstruct:${versions["mapstructVersion"]}")
 	compileOnly("com.google.code.findbugs:jsr305:${versions["comGoogleCodeFindbugs"]}")
@@ -99,7 +100,7 @@ tasks.withType<Test> {
 ──────────────────────────────────────────────────────
 */
 
-val openApiDir = file("${rootDir}/openapi")
+val openApiDir = file("${rootDir}/auth-service/openapi")
 
 val foundSpecifications = openApiDir.listFiles { f -> f.extension in listOf("yaml", "yml") } ?: emptyArray()
 logger.lifecycle("Found ${foundSpecifications.size} specifications: " + foundSpecifications.joinToString { it.name })

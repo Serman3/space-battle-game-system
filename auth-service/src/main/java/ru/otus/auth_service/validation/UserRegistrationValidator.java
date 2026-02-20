@@ -1,11 +1,11 @@
 package ru.otus.auth_service.validation;
 
-import net.proselyte.auth.dto.RegistrationRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import ru.otus.auth_service.datasource.dto.UserDto;
 import ru.otus.auth_service.ex.UserNotCreatedException;
+import ru.otus.auth_service.openapi.model.RegistrationRequestDto;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.validator.BaseValidator;
 
@@ -20,7 +20,6 @@ public class UserRegistrationValidator extends BaseValidator {
     public UserRegistrationValidator(UserAuthService userAuthService) {
         this.userAuthService = userAuthService;
     }
-
 
     @Override
     public boolean supports(Class<?> clazz) {

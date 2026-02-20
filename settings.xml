@@ -1,0 +1,16 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <mirrorOf>*</mirrorOf>
+            <url>http://localhost:8081/repostitory/maven-snapshots</url>
+        </mirror>
+    </mirrors>
+    <servers>
+        <server>
+            <id>nexus</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+    </servers>
+</settings>
