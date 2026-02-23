@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8082
 
 paths:
-  /v1/auth:
+  /v1/auth/register:
     post:
       summary: Регистрация пользователя
       operationId: "register"

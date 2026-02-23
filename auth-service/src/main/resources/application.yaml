@@ -43,6 +43,9 @@ spring:
     password: postgres
     driver-class-name: org.postgresql.Driver
   flyway:
+    user: postgres
+    password: postgres
+    defaultSchema: person
     enabled: true
     validate-on-migrate: true
     baseline-on-migrate: true

@@ -1,0 +1,99 @@
+spring:
+  profiles:
+    active: prod
+  application:
+    name: game-service
+
+server:
+  port: 8444
+
+logging:
+  level:
+    org.springframework.jdbc.core: trace
+    org.springframework.security: trace
+
+jwt:
+  access-token-key: '{"kty":"oct","k":"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI"}'
+  refresh-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://@discovery:8761/eureka}
+  #      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      access: read_only
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+otel:
+  exporter:
+    otlp:
+      endpoint: ${OTLP_EXPORTER_ENDPOINT:http://localhost:4318}
+      protocol: http/protobuf
+  logs:
+    exporter: none
+  metrics:
+    exporter: none
+
+logging:
+  config: "classpath:logback.xml"
+  level:
+    sql: debug
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      client:
+        config:
+          AuthServiceClient:
+            connect-timeout: 30000
+            readTimeout: 30000
+            logger-level: full
+          GameServiceClient:
+            connect-timeout: 30000
+            readTimeout: 30000
+            logger-level: full
+
+logging:
+  level:
+    org.springframework.jdbc.core: trace
+    ru.otus.homework.api.client.AuthServiceClient: debug
+    ru.otus.homework.api.client.GameServiceClient: debug
+
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 30000ms
+        cancel-running-future: true
+
+eureka:
+  client:
+    enabled: false
+
+services:
+  auth-service:
+    url: http://localhost:8443
+  game-service:
+    url: http://localhost:8444

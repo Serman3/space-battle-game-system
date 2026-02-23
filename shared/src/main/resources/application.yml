@@ -2,11 +2,14 @@ spring:
   application:
     name: shared
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person_game
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   flyway:
+    user: postgres
+    password: postgres
+    defaultSchema: person_game
     enabled: true
     validate-on-migrate: true
     baseline-on-migrate: true

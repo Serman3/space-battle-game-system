@@ -9,7 +9,7 @@ import ru.otus.auth_service.datasource.entity.UserAuthorityEntity;
 import java.util.List;
 
 @Repository
-public interface UserAuthorityRepository extends JpaRepository<UserAuthorityEntity, Long> {
+public interface UserAuthorityRepository extends JpaRepository<UserAuthorityEntity, Integer> {
 
     @Query(value = """
             select c_authority from person.t_user_authority where id_user = :userId

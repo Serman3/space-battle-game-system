@@ -3,7 +3,7 @@
         <mirror>
             <id>nexus</id>
             <mirrorOf>*</mirrorOf>
-            <url>http://localhost:8081/repostitory/maven-snapshots</url>
+            <url>http://localhost:8081/repostitory/maven-snapshots/</url>
         </mirror>
     </mirrors>
     <servers>

@@ -1,4 +1,4 @@
-CREATE TABLE person_game.t_game
+CREATE TABLE IF NOT EXISTS person_game.t_game
 (
     id           SERIAL                      PRIMARY KEY,
     active       BOOLEAN                     NOT NULL DEFAULT TRUE,
@@ -8,7 +8,7 @@ CREATE TABLE person_game.t_game
     created_date TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc')
 );
 
-CREATE TABLE person_game.t_active_game
+CREATE TABLE IF NOT EXISTS person_game.t_active_game
 (
     id           SERIAL                      PRIMARY KEY,
     active       BOOLEAN                     NOT NULL DEFAULT TRUE,

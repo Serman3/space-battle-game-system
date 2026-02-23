@@ -1,10 +1,10 @@
-CREATE TABLE person_history.revinfo
+CREATE TABLE IF NOT EXISTS person_history.revinfo
 (
     rev       BIGSERIAL PRIMARY KEY,
     revtmstmp BIGINT
 );
 
-CREATE TABLE person_history.t_user_history
+CREATE TABLE IF NOT EXISTS person_history.t_user_history
 (
     id            SERIAL                      NOT NULL,
     revision      BIGINT                      NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE person_history.t_user_history
 
 CREATE INDEX IF NOT EXISTS idx_t_user_history_revision ON person_history.t_user_history (revision);
 
-CREATE TABLE person_history.t_user_authority_history
+CREATE TABLE IF NOT EXISTS person_history.t_user_authority_history
 (
     id            SERIAL                      NOT NULL,
     revision      BIGINT                      NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE person_history.t_user_authority_history
 
 CREATE INDEX IF NOT EXISTS idx_t_user_authority_history_revision ON person_history.t_user_authority_history (revision);
 
-CREATE TABLE person_history.t_deactivated_token_history
+CREATE TABLE IF NOT EXISTS person_history.t_deactivated_token_history
 (
     id            UUID                        NOT NULL,
     revision      BIGINT                      NOT NULL,

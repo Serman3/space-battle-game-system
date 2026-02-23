@@ -1,10 +1,10 @@
-CREATE TABLE person_game_history.revinfo
+CREATE TABLE IF NOT EXISTS person_game_history.revinfo
 (
     rev       BIGSERIAL PRIMARY KEY,
     revtmstmp BIGINT
 );
 
-CREATE TABLE person_game_history.t_game_history
+CREATE TABLE IF NOT EXISTS person_game_history.t_game_history
 (
     id            SERIAL                      NOT NULL,
     revision      BIGINT                      NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE person_game_history.t_game_history
 
 CREATE INDEX IF NOT EXISTS idx_t_game_history_revision ON person_game_history.t_game_history (revision);
 
-CREATE TABLE person_game_history.t_active_game_history
+CREATE TABLE IF NOT EXISTS person_game_history.t_active_game_history
 (
     id            SERIAL                      NOT NULL,
     revision      BIGINT                      NOT NULL,

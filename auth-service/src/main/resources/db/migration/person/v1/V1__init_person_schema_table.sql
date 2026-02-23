@@ -1,4 +1,4 @@
-CREATE TABLE person.t_user
+CREATE TABLE IF NOT EXISTS person.t_user
 (
     id       SERIAL                      PRIMARY KEY,
     active   BOOLEAN                     NOT NULL DEFAULT TRUE,
@@ -8,7 +8,7 @@ CREATE TABLE person.t_user
     password VARCHAR                     NOT NULL
 );
 
-CREATE TABLE person.t_user_authority
+CREATE TABLE IF NOT EXISTS person.t_user_authority
 (
     id          SERIAL                      PRIMARY KEY,
     active      BOOLEAN                     NOT NULL DEFAULT TRUE,
@@ -19,7 +19,7 @@ CREATE TABLE person.t_user_authority
     UNIQUE (id_user, c_authority)
 );
 
-CREATE TABLE person.t_deactivated_token
+CREATE TABLE IF NOT EXISTS person.t_deactivated_token
 (
     id           UUID                        PRIMARY KEY,
     active       BOOLEAN                     NOT NULL DEFAULT TRUE,
