@@ -1,5 +1,5 @@
 package ru.otus.game_service.api.client;
-;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.PostMapping;

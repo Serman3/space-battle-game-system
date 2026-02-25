@@ -6,9 +6,9 @@ import org.reflections.util.ConfigurationBuilder;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.otus.annotation.Id;
-import ru.otus.command.Command;
-import ru.otus.model.UObject;
+import ru.otus.shared.annotation.Id;
+import ru.otus.shared.command.Command;
+import ru.otus.shared.model.UObject;
 
 import java.util.HashMap;
 import java.util.Map;

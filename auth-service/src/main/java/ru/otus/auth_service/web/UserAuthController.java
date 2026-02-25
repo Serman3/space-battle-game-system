@@ -13,7 +13,7 @@ import ru.otus.auth_service.openapi.api.V1Api;
 import ru.otus.auth_service.openapi.model.*;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.auth_service.validation.UserRegistrationValidator;
-import ru.otus.service.GameService;
+import ru.otus.shared.service.GameService;
 
 import java.util.Base64;
 import java.util.Map;

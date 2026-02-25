@@ -3,8 +3,8 @@ package ru.otus.game_service.config;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.otus.security.JwtAuthenticationConverter;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.JwtAuthenticationConverter;
+import ru.otus.shared.security.token.Token;
 
 import java.util.function.Function;
 

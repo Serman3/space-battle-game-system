@@ -3,7 +3,7 @@ package ru.otus.auth_service.security.token.refresh;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.time.Duration;
 import java.time.Instant;

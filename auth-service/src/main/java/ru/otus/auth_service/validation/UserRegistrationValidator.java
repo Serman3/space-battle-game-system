@@ -7,7 +7,7 @@ import ru.otus.auth_service.datasource.dto.UserDto;
 import ru.otus.auth_service.ex.UserNotCreatedException;
 import ru.otus.auth_service.openapi.model.RegistrationRequestDto;
 import ru.otus.auth_service.service.UserAuthService;
-import ru.otus.validator.BaseValidator;
+import ru.otus.shared.validator.BaseValidator;
 
 import java.util.Optional;
 

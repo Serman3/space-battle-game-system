@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.otus.annotation.Id;
-import ru.otus.command.Command;
-import ru.otus.model.UObject;
+import ru.otus.shared.annotation.Id;
+import ru.otus.shared.command.Command;
+import ru.otus.shared.model.UObject;
 
 import java.util.Map;
 

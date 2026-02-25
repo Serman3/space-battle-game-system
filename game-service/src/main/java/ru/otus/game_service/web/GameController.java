@@ -15,7 +15,7 @@ import ru.otus.game_service.openapi.model.OrderRequestDto;
 import ru.otus.game_service.openapi.model.OrderResponseDto;
 import ru.otus.game_service.service.GameOrderService;
 import ru.otus.game_service.validator.OrderValidator;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.util.Map;
 

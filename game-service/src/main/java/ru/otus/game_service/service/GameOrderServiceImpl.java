@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.otus.command.Command;
+import ru.otus.shared.command.Command;
 import ru.otus.game_service.game.CommandFactory;
 import ru.otus.game_service.model.Order;
-import ru.otus.model.UObject;
-import ru.otus.storage.GameContext;
+import ru.otus.shared.model.UObject;
+import ru.otus.shared.storage.GameContext;
 
 import java.util.Map;
 

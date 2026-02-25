@@ -18,11 +18,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <flyway.user>postgres</flyway.user>
-        <flyway.password>postgres</flyway.password>
-        <flyway.schemas>person</flyway.schemas>
-        <flyway.url>jdbc:postgresql://localhost/person</flyway.url>
-        <flyway.locations>classpath:db/migration/person/v1</flyway.locations>
     </properties>
 
     <dependencies>
@@ -107,7 +102,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
-            <version>10.4.1</version>
+            <version>${flyway.version}</version>
             <scope>runtime</scope>
             <exclusions>
                 <exclusion>
@@ -119,7 +114,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>10.4.1</version>
+            <version>${flyway.version}</version>
         </dependency>
 
         <dependency>
@@ -132,11 +127,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>11.17.0</version>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

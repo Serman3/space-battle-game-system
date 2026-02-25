@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.otus.command.Command;
+import ru.otus.shared.command.Command;
 import ru.otus.game_service.game.CommandFactory;
-import ru.otus.model.UObject;
-import ru.otus.storage.GameContext;
+import ru.otus.shared.model.UObject;
+import ru.otus.shared.storage.GameContext;
 
 import java.util.Map;
 

@@ -12,8 +12,8 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.otus.security.JwtAuthenticationConverter;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.JwtAuthenticationConverter;
+import ru.otus.shared.security.token.Token;
 
 import java.io.IOException;
 

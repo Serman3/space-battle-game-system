@@ -2,7 +2,7 @@ package ru.otus.auth_service.security.token;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.util.Collection;
 

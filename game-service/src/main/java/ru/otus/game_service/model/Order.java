@@ -1,6 +1,6 @@
 package ru.otus.game_service.model;
 
-import ru.otus.model.UObject;
+import ru.otus.shared.model.UObject;
 
 import java.util.HashMap;
 import java.util.Map;

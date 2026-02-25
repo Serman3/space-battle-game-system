@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
-import ru.otus.datasource.entity.BaseEntity;
+import ru.otus.shared.datasource.entity.BaseEntity;
 
 import javax.validation.constraints.NotNull;
 import java.time.Instant;

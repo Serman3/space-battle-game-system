@@ -22,9 +22,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import ru.otus.auth_service.security.token.access.AccessTokenJwsStringSerializer;
 import ru.otus.auth_service.security.token.refresh.RefreshTokenJweStringSerializer;
 import ru.otus.auth_service.service.UserAuthService;
-import ru.otus.security.access.AccessTokenJwsStringDeserializer;
-import ru.otus.security.refresh.RefreshTokenJweStringDeserializer;
-import ru.otus.service.GameService;
+import ru.otus.shared.security.access.AccessTokenJwsStringDeserializer;
+import ru.otus.shared.security.refresh.RefreshTokenJweStringDeserializer;
+import ru.otus.shared.service.GameService;
 
 import java.text.ParseException;
 

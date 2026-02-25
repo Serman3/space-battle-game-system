@@ -8,7 +8,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.util.Date;
 import java.util.function.Function;

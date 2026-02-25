@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import ru.otus.auth_service.service.UserAuthService;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.time.Instant;
 

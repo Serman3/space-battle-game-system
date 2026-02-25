@@ -20,9 +20,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flyway.user>postgres</flyway.user>
         <flyway.password>postgres</flyway.password>
-        <flyway.schemas>person_game</flyway.schemas>
         <flyway.url>jdbc:postgresql://localhost/person</flyway.url>
-        <flyway.locations>classpath:db/migration/person_game/v1</flyway.locations>
+        <flyway.locations>classpath:db/migration/v1</flyway.locations>
     </properties>
 
     <dependencies>
@@ -49,7 +48,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
-            <version>10.4.1</version>
+            <version>${flyway.version}</version>
             <scope>runtime</scope>
             <exclusions>
                 <exclusion>
@@ -61,7 +60,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>10.4.1</version>
+            <version>${flyway.version}</version>
         </dependency>
 
     </dependencies>

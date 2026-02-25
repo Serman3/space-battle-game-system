@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import ru.otus.game_service.ex.OrderParseException;
 import ru.otus.game_service.openapi.model.OrderRequestDto;
-import ru.otus.security.token.Token;
-import ru.otus.service.GameService;
-import ru.otus.validator.BaseValidator;
+import ru.otus.shared.security.token.Token;
+import ru.otus.shared.service.GameService;
+import ru.otus.shared.validator.BaseValidator;
 
 import java.util.List;
 

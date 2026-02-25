@@ -2,8 +2,8 @@ package ru.otus.game_service.game.model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.otus.annotation.Id;
-import ru.otus.model.UObject;
+import ru.otus.shared.annotation.Id;
+import ru.otus.shared.model.UObject;
 
 import java.util.HashMap;
 import java.util.Map;

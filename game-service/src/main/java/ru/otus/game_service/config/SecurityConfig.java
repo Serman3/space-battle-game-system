@@ -17,8 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.otus.security.access.AccessTokenJwsStringDeserializer;
-import ru.otus.security.refresh.RefreshTokenJweStringDeserializer;
+import ru.otus.shared.security.access.AccessTokenJwsStringDeserializer;
+import ru.otus.shared.security.refresh.RefreshTokenJweStringDeserializer;
 
 import java.text.ParseException;
 

@@ -16,9 +16,9 @@ import ru.otus.auth_service.security.filter.RequestGameJwtTokensFilter;
 import ru.otus.auth_service.security.filter.RequestJwtTokensFilter;
 import ru.otus.auth_service.security.token.TokenAuthenticationUserDetailsService;
 import ru.otus.auth_service.service.UserAuthService;
-import ru.otus.security.JwtAuthenticationConverter;
-import ru.otus.security.token.Token;
-import ru.otus.service.GameService;
+import ru.otus.shared.security.JwtAuthenticationConverter;
+import ru.otus.shared.security.token.Token;
+import ru.otus.shared.service.GameService;
 
 import java.util.function.Function;
 

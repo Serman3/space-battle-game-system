@@ -1,6 +1,6 @@
 package ru.otus.auth_service.security.token.access;
 
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.time.Duration;
 import java.time.Instant;

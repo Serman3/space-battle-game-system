@@ -13,7 +13,7 @@ import ru.otus.auth_service.datasource.mapper.Mapper;
 import ru.otus.auth_service.datasource.repository.DeactivatedTokenRepository;
 import ru.otus.auth_service.datasource.repository.UserAuthorityRepository;
 import ru.otus.auth_service.datasource.repository.UserRepository;
-import ru.otus.security.token.Token;
+import ru.otus.shared.security.token.Token;
 
 import java.util.List;
 import java.util.Optional;
