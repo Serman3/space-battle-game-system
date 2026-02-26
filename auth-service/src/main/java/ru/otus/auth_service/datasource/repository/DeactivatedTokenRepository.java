@@ -14,7 +14,7 @@ public interface DeactivatedTokenRepository extends JpaRepository<DeactivatedTok
     boolean existsById(UUID id);
 
     @Query(value = """
-            select exists(select id from person.t_deactivated_token where id = :id
+            select exists(select id from person.t_deactivated_token where id = :id)
             """, nativeQuery = true)
     boolean existsDeactivateTokenById(@Param("id") UUID id);
 }

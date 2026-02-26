@@ -102,7 +102,6 @@ paths:
             application/json:
               schema:
                 type: string
-                format: uuid
                 example: 550e8400-e29b-41d4-a716-446655440000
 
   /v1/auth/compensate-registration/{id}:
@@ -117,7 +116,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
       responses:
         '200':
           description: Пользователь успешно удален
@@ -174,7 +172,6 @@ components:
           type: string
         gameId:
           type: string
-          format: uuid
           example: 550e8400-e29b-41d4-a716-446655440000
 
     JwtTokenRequestDto:

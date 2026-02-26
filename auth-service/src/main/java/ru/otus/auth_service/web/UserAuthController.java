@@ -2,6 +2,7 @@ package ru.otus.auth_service.web;
 
 import feign.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,12 +15,12 @@ import ru.otus.auth_service.openapi.model.*;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.auth_service.validation.UserRegistrationValidator;
 import ru.otus.shared.service.GameService;
+import ru.otus.shared.util.BasicAuthUtil;
 
-import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserAuthController implements AuthApi {
@@ -32,13 +33,13 @@ public class UserAuthController implements AuthApi {
     @Override
     public ResponseEntity<JwtAuthorizationResponseDto> authorize(JwtAuthorizationRequestDto jwtAuthorizationRequestDto) {
         return ResponseEntity.of(Optional.of(jwtClient.performToken(
-                "Basic " + encodeToBase64(jwtAuthorizationRequestDto.getUsername() + ":" + jwtAuthorizationRequestDto.getPassword()),
-                jwtAuthorizationRequestDto.getGameId().toString()
+                "Basic " + BasicAuthUtil.encodeToBase64(jwtAuthorizationRequestDto.getUsername() + ":" + jwtAuthorizationRequestDto.getPassword()),
+                jwtAuthorizationRequestDto.getGameId()
         )));
     }
 
     @Override
-    public ResponseEntity<Void> compensateRegistration(UUID id) {
+    public ResponseEntity<Void> compensateRegistration(String id) {
         throw new RuntimeException("Метод не поддерживается");
     }
 
@@ -64,8 +65,8 @@ public class UserAuthController implements AuthApi {
     }
 
     @Override
-    public ResponseEntity<UUID> organizeSpacebattle(OrganaizeSpaceBattleRequestDto organaizeSpaceBattleRequestDto) {
-        return ResponseEntity.ok(UUID.fromString(gameService.createGame(organaizeSpaceBattleRequestDto.getUsers())));
+    public ResponseEntity<String> organizeSpacebattle(OrganaizeSpaceBattleRequestDto organaizeSpaceBattleRequestDto) {
+        return ResponseEntity.ok(gameService.createGame(organaizeSpaceBattleRequestDto.getUsers()));
     }
 
     @ExceptionHandler
@@ -75,11 +76,8 @@ public class UserAuthController implements AuthApi {
 
     @ExceptionHandler
     private ResponseEntity<Map<String, String>> handleException(Throwable exception) {
+        log.error("ErrorMessage", exception);
         return new ResponseEntity<>(Map.of("ErrorMessage", exception.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-
-    private String encodeToBase64(String credentials) {
-        return Base64.getEncoder().encodeToString(credentials.getBytes());
     }
 
 }

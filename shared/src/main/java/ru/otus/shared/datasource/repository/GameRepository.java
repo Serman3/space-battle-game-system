@@ -13,9 +13,9 @@ public interface GameRepository extends JpaRepository<GameEntity, Integer> {
 
     @Query(value = """
             select u.username
-            from t_user u
-            join t_active_game ag ON ag.id_user = u.id
-            join t_game g on g.id = ag.id_game
+            from person.t_user u
+            join person.t_active_game ag ON ag.id_user = u.id
+            join person.t_game g on g.id = ag.id_game
             where g.id_game = :gameId
             """, nativeQuery = true)
     List<String> findAllUsersByGameId(@Param("gameId") String gameId);

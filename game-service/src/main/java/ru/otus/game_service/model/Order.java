@@ -1,10 +1,14 @@
 package ru.otus.game_service.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.otus.shared.model.UObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 public class Order implements UObject {
 
     private final Map<String, Object> properties = new HashMap<>();
@@ -46,26 +50,6 @@ public class Order implements UObject {
     @Override
     public Map<String, Object> getProperties() {
         return this.properties;
-    }
-
-    public String getActionId() {
-        return actionId;
-    }
-
-    public void setActionId(String actionId) {
-        this.actionId = actionId;
-    }
-
-    public void setId(String gameObjectId) {
-        this.gameObjectId = gameObjectId;
-    }
-
-    public Map<String, Object> getArgs() {
-        return args;
-    }
-
-    public void setArgs(Map<String, Object> args) {
-        this.args = args;
     }
 
     private void initProperties() {

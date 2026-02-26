@@ -25,23 +25,24 @@ public class GameServiceImpl implements GameService {
         this.activeGameRepository = activeGameRepository;
     }
 
+
     @Override
     @Transactional
     public String createGame(List<String> users) {
-        String uuid = UUID.randomUUID().toString();
+        UUID gameId = UUID.randomUUID();
+        String uuid = gameId.toString();
 
         GameEntity gameEntity = new GameEntity();
         gameEntity.setIdGame(uuid);
+        gameEntity.setCreatedDate(Instant.now());
         gameEntity.setActive(true);
         gameEntity.setCreated(Instant.now());
         gameEntity.setUpdated(Instant.now());
-        gameRepository.save(gameEntity);
+        gameRepository.saveAndFlush(gameEntity);
 
-        users.forEach(user -> {
-            activeGameRepository.insertActiveGameByGameIdAndUsername(uuid, user);
-        });
+        activeGameRepository.insertActiveGameByGameIdAndUsername(gameId.toString(), users);
 
-        return uuid;
+        return gameId.toString();
     }
 
     @Override
