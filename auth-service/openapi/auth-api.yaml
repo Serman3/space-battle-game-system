@@ -164,8 +164,7 @@ components:
       type: object
       required: [
         username,
-        password,
-        gameId
+        password
       ]
       properties:
         username:

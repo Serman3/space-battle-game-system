@@ -1,4 +1,4 @@
-package ru.otus.game_service.config;
+package ru.otus.game_service.security.config;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.crypto.DirectDecrypter;

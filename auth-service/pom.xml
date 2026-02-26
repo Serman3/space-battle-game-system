@@ -165,9 +165,13 @@
                             <addCompileSourceRoot>true</addCompileSourceRoot>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <templateResourcePath>${project.basedir}/src/templates/JavaSpring</templateResourcePath>
+                            <ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
                             <configOptions>
                                 <dateLibrary>java8</dateLibrary>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <useBeanValidation>true</useBeanValidation>
                                 <openApiNullable>false</openApiNullable>
+                                <useTags>true</useTags>
                                 <delegatePattern>true</delegatePattern>
                                 <apiPackage>ru.otus.auth_service.openapi.api</apiPackage>
                                 <modelPackage>ru.otus.auth_service.openapi.model</modelPackage>

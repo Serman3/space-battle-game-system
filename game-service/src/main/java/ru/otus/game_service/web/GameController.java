@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import ru.otus.game_service.model.Order;
-import ru.otus.game_service.openapi.api.V1Api;
+import ru.otus.game_service.openapi.api.GameApi;
 import ru.otus.game_service.openapi.model.OrderRequestDto;
 import ru.otus.game_service.openapi.model.OrderResponseDto;
 import ru.otus.game_service.service.GameOrderService;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Profile("prod")
-public class GameController implements V1Api {
+public class GameController implements GameApi {
 
     private final OrderValidator orderValidator;
     private final ModelMapper modelMapper;

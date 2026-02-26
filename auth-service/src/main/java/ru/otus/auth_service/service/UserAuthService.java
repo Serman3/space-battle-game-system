@@ -15,6 +15,7 @@ import ru.otus.auth_service.datasource.repository.UserAuthorityRepository;
 import ru.otus.auth_service.datasource.repository.UserRepository;
 import ru.otus.shared.security.token.Token;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,9 @@ public class UserAuthService {
     public void addUser(UserDto userDto) {
         UserEntity userEntity = userMapper.mapToEntity(userDto);
         userEntity.setPassword("{noop}" + userEntity.getPassword());
+        userEntity.setActive(true);
+        userEntity.setCreated(Instant.now());
+        userEntity.setUpdated(Instant.now());
         userRepository.save(userEntity);
 
         addRoleByUsername(new UserAuthorityDto(userEntity.getUsername(), "ROLE_USER"));
@@ -70,12 +74,18 @@ public class UserAuthService {
 
     public void addRoleByUsername(UserAuthorityDto userAuthorityDto) {
         UserAuthorityEntity userAuthorityEntity = userAuthorityMapper.mapToEntity(userAuthorityDto);
+        userAuthorityEntity.setActive(true);
+        userAuthorityEntity.setCreated(Instant.now());
+        userAuthorityEntity.setUpdated(Instant.now());
         userAuthorityRepository.save(userAuthorityEntity);
     }
 
     @Transactional
     public void addDeactivateToken(DeactivateTokenDto deactivateTokenDto) {
         DeactivatedTokenEntity deactivatedTokenEntity = deactivatedTokenMapper.mapToEntity(deactivateTokenDto);
+        deactivatedTokenEntity.setActive(true);
+        deactivatedTokenEntity.setCreated(Instant.now());
+        deactivatedTokenEntity.setUpdated(Instant.now());
         deactivatedTokenRepository.save(deactivatedTokenEntity);
     }
 

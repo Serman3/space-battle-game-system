@@ -1,4 +1,4 @@
-package ru.otus.auth_service.datasource.entity;
+package ru.otus.shared.datasource.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.envers.RevisionEntity;

@@ -14,7 +14,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "t_game", schema = "person_game")
+@Table(name = "t_game", schema = "person")
 public class GameEntity extends BaseEntity {
 
     @Id

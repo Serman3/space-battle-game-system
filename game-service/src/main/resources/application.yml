@@ -5,48 +5,28 @@ jwt:
   access-token-key: '{"kty":"oct","k":"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI"}'
   refresh-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
 
+logging:
+  level:
+    sql: debug
+    org.springframework.jdbc.core: trace
+    org.springframework.security: trace
+
 spring:
   profiles:
     active: prod
   application:
     name: game-service
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    properties:
-      org.hibernate:
-        envers:
-          autoRegisterListeners: true
-          audit_table_suffix: _history
-          default_schema: person_game_history
-          store_data_at_delete: true
-          revision_field_name: revision
-          revision_type_field_name: revision_type
-          revision_sequence_name: person_game_history.revinfo_seq
-        hibernate:
-          default_schema: person_game
-          show_sql: ${SHOW_SQL:true}
-          format_sql: ${FORMAT_SQL:true}
-          highlight_sql: ${HIGHLIGHT_SQL:true}
-          session.events.log.LOG_QUERIES_SLOWER_THAN_MS: ${SLOW_SQL_QUERY_INDICATOR_MS:1500}
-          hbm2ddl:
-            auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-logging:
-  config: "classpath:logback.xml"
-  level:
-    sql: debug
-    org.springframework.jdbc.core: trace
-    org.springframework.security: trace
-    ru.otus.homework.api.client.AuthServiceClient: debug
-    ru.otus.homework.api.client.GameServiceClient: debug
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://@discovery:8761/eureka}
-  #      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+#      defaultZone: ${EUREKA_URI:http://@discovery:8761/eureka}
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
 
@@ -95,6 +75,11 @@ spring:
             connect-timeout: 30000
             readTimeout: 30000
             logger-level: full
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
 
 resilience4j:
   timelimiter:
@@ -107,8 +92,16 @@ eureka:
   client:
     enabled: false
 
+logging:
+  level:
+    sql: debug
+    org.springframework.jdbc.core: trace
+    org.springframework.security: trace
+    ru.otus.homework.api.client.AuthServiceClient: debug
+    ru.otus.homework.api.client.GameServiceClient: debug
+
 services:
   auth-service:
-    url: http://localhost:8443
+    url: http://localhost:8092
   game-service:
     url: http://localhost:8444

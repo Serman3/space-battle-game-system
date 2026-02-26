@@ -1,6 +1,5 @@
 package ru.otus.game_service;
 
-import feign.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

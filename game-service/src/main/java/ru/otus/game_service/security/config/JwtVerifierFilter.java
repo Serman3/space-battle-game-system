@@ -1,4 +1,4 @@
-package ru.otus.game_service.config;
+package ru.otus.game_service.security.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class JwtVerifierFilter extends OncePerRequestFilter {
 
-    private RequestMatcher requestMatcher = new AntPathRequestMatcher("/api/**", HttpMethod.POST.name());
+    private RequestMatcher requestMatcher = new AntPathRequestMatcher("/v1/**", HttpMethod.POST.name());
 
     private JwtAuthenticationConverter jwtAuthenticationConverter;
 

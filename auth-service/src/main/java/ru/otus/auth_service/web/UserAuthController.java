@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.otus.auth_service.api.client.JwtClient;
 import ru.otus.auth_service.datasource.dto.UserDto;
 import ru.otus.auth_service.ex.UserNotCreatedException;
-import ru.otus.auth_service.openapi.api.V1Api;
+import ru.otus.auth_service.openapi.api.AuthApi;
 import ru.otus.auth_service.openapi.model.*;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.auth_service.validation.UserRegistrationValidator;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-public class UserAuthController implements V1Api {
+public class UserAuthController implements AuthApi {
 
     private final JwtClient jwtClient;
     private final GameService gameService;
@@ -35,6 +35,11 @@ public class UserAuthController implements V1Api {
                 "Basic " + encodeToBase64(jwtAuthorizationRequestDto.getUsername() + ":" + jwtAuthorizationRequestDto.getPassword()),
                 jwtAuthorizationRequestDto.getGameId().toString()
         )));
+    }
+
+    @Override
+    public ResponseEntity<Void> compensateRegistration(UUID id) {
+        throw new RuntimeException("Метод не поддерживается");
     }
 
     @Override

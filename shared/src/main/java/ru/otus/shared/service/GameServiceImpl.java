@@ -7,6 +7,7 @@ import ru.otus.shared.datasource.entity.GameEntity;
 import ru.otus.shared.datasource.repository.ActiveGameRepository;
 import ru.otus.shared.datasource.repository.GameRepository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,9 @@ public class GameServiceImpl implements GameService {
 
         GameEntity gameEntity = new GameEntity();
         gameEntity.setIdGame(uuid);
+        gameEntity.setActive(true);
+        gameEntity.setCreated(Instant.now());
+        gameEntity.setUpdated(Instant.now());
         gameRepository.save(gameEntity);
 
         users.forEach(user -> {

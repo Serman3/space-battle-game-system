@@ -1,4 +1,4 @@
-package ru.otus.game_service.config;
+package ru.otus.game_service.security.config;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
