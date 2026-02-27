@@ -1,5 +1,5 @@
 server:
-  port: 8444
+  port: 8093
 
 jwt:
   access-token-key: '{"kty":"oct","k":"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI"}'
@@ -25,7 +25,6 @@ spring:
 eureka:
   client:
     serviceUrl:
-#      defaultZone: ${EUREKA_URI:http://@discovery:8761/eureka}
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
@@ -104,4 +103,4 @@ services:
   auth-service:
     url: http://localhost:8092
   game-service:
-    url: http://localhost:8444
+    url: http://localhost:8093

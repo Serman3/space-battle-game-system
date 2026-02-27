@@ -164,8 +164,8 @@
                             <output>${project.build.directory}/generated-sources/openapi</output>
                             <addCompileSourceRoot>true</addCompileSourceRoot>
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
-                            <templateResourcePath>${project.basedir}/src/templates/JavaSpring</templateResourcePath>
-                            <ignoreFileOverride>${project.basedir}/.openapi-generator-ignore</ignoreFileOverride>
+                            <templateResourcePath>${project.basedir}/openapi/templates/JavaSpring</templateResourcePath>
+                            <ignoreFileOverride>${project.basedir}/openapi/.openapi-generator-ignore</ignoreFileOverride>
                             <configOptions>
                                 <dateLibrary>java8</dateLibrary>
                                 <skipDefaultInterface>true</skipDefaultInterface>
