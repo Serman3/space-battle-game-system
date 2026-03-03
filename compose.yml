@@ -5,16 +5,16 @@ services:
   discovery-service:
     build: ./discovery-service
     container_name: discovery-service
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://discovery-service:8761/actuator/health" ]
-      interval: 120s
-      timeout: 360s
-      retries: 3
-      start_period: 60s
     environment:
       OTLP_EXPORTER_ENDPOINT: http://tempo:4318
     ports:
       - "8761:8761"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://discovery-service:8761/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   person-postgres:
     image: postgres:17
@@ -36,12 +36,6 @@ services:
   auth-service:
     build: ./auth-service
     container_name: auth-service
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://auth-servie:8092/actuator/health" ]
-      interval: 120s
-      timeout: 360s
-      retries: 3
-      start_period: 60s
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://person-postgres:5432/person
       EUREKA_URI: http://discovery-service:8761/eureka
@@ -55,16 +49,16 @@ services:
         condition: service_healthy
       person-postgres:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://auth-servie:8092/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   game-service:
     build: ./game-service
     container_name: game-service
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://game-service:8093/actuator/health" ]
-      interval: 120s
-      timeout: 360s
-      retries: 3
-      start_period: 60s
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://person-postgres:5432/person
       EUREKA_URI: http://discovery-service:8761/eureka
@@ -78,16 +72,16 @@ services:
         condition: service_healthy
       auth-service:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://game-service:8093/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   api-gateway-service:
     build: ./api-gateway
     container_name: api-gateway-service
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://api-gateway-service:8086/actuator/health"]
-      interval: 120s
-      timeout: 360s
-      retries: 3
-      start_period: 60s
     environment:
       EUREKA_URI: http://discovery-service:8761/eureka
       OTLP_EXPORTER_ENDPOINT: http://tempo:4318
@@ -100,6 +94,12 @@ services:
         condition: service_healthy
       game-service:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api-gateway-service:8086/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   # Метрики для prometheus по БД person-postgres
   person-postgres-exporter:
@@ -112,23 +112,6 @@ services:
       DATA_SOURCE_NAME: postgresql://postgres:postgres@person-postgres:5432/postgres?sslmode=disable
     ports:
       - "9188:9187"
-
-  # Хранение артефактов
-  nexus:
-    image: sonatype/nexus3:3.76.0
-    container_name: nexus
-    ports:
-      - "8081:8081"
-    environment:
-      NEXUS_SECURITY_INITIAL_PASSWORD: admin
-      NEXUS_SECURITY_RANDOMPASSWORD: false
-    volumes:
-      - nexus-data:/nexus-data
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8081/service/rest/v1/status" ]
-      interval: 5s
-      timeout: 10s
-      retries: 30
 
   # Хранение метрик систем
   prometheus:
@@ -212,7 +195,6 @@ services:
     volumes:
       - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning
       - ./infrastructure/grafana/dashboards:/var/lib/grafana/dashboards
-      - nexus-data:/nexus-data
     healthcheck:
       test: [ "CMD", "wget", "--spider", "http://localhost:3000/api/health" ]
       interval: 10s
@@ -221,7 +203,6 @@ services:
 
 volumes:
   artifacts:
-  nexus-data:
   tempo_data:
   loki_data:
   loki_chunks:

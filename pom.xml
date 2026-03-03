@@ -36,13 +36,6 @@
         <flyway.version>10.4.1</flyway.version>
     </properties>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>nexus</id>-->
-<!--            <url>http://localhost:8081/repostitory/maven-snapshots/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
     <dependencyManagement>
         <dependencies>
             <dependency>
