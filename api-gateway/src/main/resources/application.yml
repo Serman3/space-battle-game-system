@@ -4,26 +4,32 @@ server:
 spring:
   application:
     name: api-gateway-service
-
-logging:
-  config: "classpath:logback.xml"
-
   cloud:
     gateway:
       routes:
-        - id: auth-service-route
+        - id: auth-service
           uri: lb://auth-service
           predicates:
             - Path=/v1/auth/**
           filters:
             - AddRequestHeader=X-Gateway-Routing, auth-service
 
-        - id: game-service-route
+        - id: game-service
           uri: lb://game-service
           predicates:
             - Path=/v1/game/**
           filters:
             - AddRequestHeader=X-Gateway-Routing, game-service
+
+logging:
+  config: "classpath:logback.xml"
+  level:
+    reactor:
+      netty: DEBUG
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
 
 eureka:
   client:
