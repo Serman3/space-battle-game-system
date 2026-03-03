@@ -6,6 +6,7 @@ jwt:
   refresh-token-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
 
 logging:
+  config: "classpath:logback.xml"
   level:
     sql: debug
     org.springframework.security: trace

@@ -5,6 +5,9 @@ spring:
   application:
     name: discovery-service
 
+logging:
+  config: "classpath:logback.xml"
+
 eureka:
   client:
     registerWithEureka: false

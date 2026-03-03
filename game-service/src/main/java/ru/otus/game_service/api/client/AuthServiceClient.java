@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import ru.otus.game_service.api.dto.*;
 
 @Profile("test")
-@FeignClient(qualifiers = "AuthClient", name = "AuthClient",  url = "${services.auth-service.url}", configuration = ClientConfig.class, fallbackFactory = AuthFallbackFactory.class)
+@FeignClient(qualifiers = "AuthClient", name = "AuthClient",  url = "${services.api-gateway-service.url}", configuration = ClientConfig.class, fallbackFactory = AuthFallbackFactory.class)
 public interface AuthServiceClient {
 
     @PostMapping("/v1/auth/authorize")

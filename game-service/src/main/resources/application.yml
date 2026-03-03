@@ -92,6 +92,7 @@ eureka:
     enabled: false
 
 logging:
+  config: "classpath:logback.xml"
   level:
     sql: debug
     org.springframework.jdbc.core: trace
@@ -100,7 +101,5 @@ logging:
     ru.otus.homework.api.client.GameServiceClient: debug
 
 services:
-  auth-service:
-    url: http://localhost:8092
-  game-service:
-    url: http://localhost:8093
+  api-gateway-service:
+    url: http://localhost:8086

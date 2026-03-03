@@ -79,6 +79,28 @@ services:
       auth-service:
         condition: service_healthy
 
+  api-gateway-service:
+    build: ./api-gateway
+    container_name: api-gateway-service
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api-gateway-service:8086/actuator/health"]
+      interval: 120s
+      timeout: 360s
+      retries: 3
+      start_period: 60s
+    environment:
+      EUREKA_URI: http://discovery-service:8761/eureka
+      OTLP_EXPORTER_ENDPOINT: http://tempo:4318
+    ports:
+      - "8086:8086"
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      game-service:
+        condition: service_healthy
+
   # Метрики для prometheus по БД person-postgres
   person-postgres-exporter:
     image: prometheuscommunity/postgres-exporter:latest
