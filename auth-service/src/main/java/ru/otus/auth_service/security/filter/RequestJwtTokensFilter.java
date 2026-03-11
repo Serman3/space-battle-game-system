@@ -15,9 +15,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.otus.shared.security.token.Token;
-import ru.otus.auth_service.security.token.Tokens;
-import ru.otus.auth_service.security.token.access.DefaultAccessTokenFactory;
-import ru.otus.auth_service.security.token.refresh.DefaultRefreshTokenFactory;
+import ru.otus.shared.security.token.Tokens;
+import ru.otus.shared.security.access.DefaultAccessTokenFactory;
+import ru.otus.shared.security.refresh.DefaultRefreshTokenFactory;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

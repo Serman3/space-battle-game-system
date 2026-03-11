@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.otus.auth_service.datasource.dto.DeactivateTokenDto;
 import ru.otus.auth_service.datasource.entity.DeactivatedTokenEntity;
+import ru.otus.shared.mapper.Mapper;
 
 @Component
 public class DeactivateTokenMapper implements Mapper<DeactivateTokenDto, DeactivatedTokenEntity> {

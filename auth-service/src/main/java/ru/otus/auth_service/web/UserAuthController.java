@@ -14,7 +14,6 @@ import ru.otus.auth_service.openapi.api.AuthApi;
 import ru.otus.auth_service.openapi.model.*;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.auth_service.validation.UserRegistrationValidator;
-import ru.otus.shared.service.GameService;
 import ru.otus.shared.util.BasicAuthUtil;
 
 import java.util.Map;
@@ -26,7 +25,6 @@ import java.util.Optional;
 public class UserAuthController implements AuthApi {
 
     private final JwtClient jwtClient;
-    private final GameService gameService;
     private final UserAuthService userAuthService;
     private final UserRegistrationValidator userRegistrationValidator;
 
@@ -66,7 +64,8 @@ public class UserAuthController implements AuthApi {
 
     @Override
     public ResponseEntity<String> organizeSpacebattle(OrganaizeSpaceBattleRequestDto organaizeSpaceBattleRequestDto) {
-        return ResponseEntity.ok(gameService.createGame(organaizeSpaceBattleRequestDto.getUsers()));
+       // return ResponseEntity.ok(gameService.createGame(organaizeSpaceBattleRequestDto.getUsers()));
+        return ResponseEntity.ok("");
     }
 
     @ExceptionHandler

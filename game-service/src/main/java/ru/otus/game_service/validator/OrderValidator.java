@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import ru.otus.game_service.ex.OrderParseException;
 import ru.otus.game_service.openapi.model.OrderRequestDto;
 import ru.otus.shared.security.token.Token;
-import ru.otus.shared.service.GameService;
+import ru.otus.game_service.service.GameService;
 import ru.otus.shared.validator.BaseValidator;
 
 import java.util.List;

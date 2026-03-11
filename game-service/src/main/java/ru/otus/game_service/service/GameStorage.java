@@ -3,7 +3,6 @@ package ru.otus.game_service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import ru.otus.shared.service.GameService;
 import ru.otus.shared.storage.GameContext;
 import ru.otus.shared.storage.GameContextImpl;
 

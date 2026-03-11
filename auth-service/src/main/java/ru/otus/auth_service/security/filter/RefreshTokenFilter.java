@@ -17,8 +17,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.otus.shared.security.token.Token;
 import ru.otus.auth_service.security.token.TokenUser;
-import ru.otus.auth_service.security.token.Tokens;
-import ru.otus.auth_service.security.token.access.DefaultAccessTokenFactory;
+import ru.otus.shared.security.access.DefaultAccessTokenFactory;
+import ru.otus.shared.security.token.Tokens;
 
 import java.io.IOException;
 import java.util.function.Function;

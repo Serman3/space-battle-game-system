@@ -13,16 +13,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 @EnableFeignClients
 @ComponentScan(basePackages = {
+		"ru.otus.*",
 		"ru.otus.auth_service.*",
 		"ru.otus.shared.*"
 })
 @EntityScan(basePackages = {
-		"ru.otus.auth_service.datasource.entity",
-		"ru.otus.shared.datasource.entity"
+		"ru.otus.auth_service.datasource.entity"
 })
 @EnableJpaRepositories(basePackages = {
-		"ru.otus.auth_service.datasource.repository",
-		"ru.otus.shared.datasource.repository"
+		"ru.otus.auth_service.datasource.repository"
 })
 @SpringBootApplication
 public class AuthServiceApplication {

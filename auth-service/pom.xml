@@ -18,6 +18,10 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <flyway.user>postgres</flyway.user>
+        <flyway.password>postgres</flyway.password>
+        <flyway.url>jdbc:postgresql://localhost:5432/person</flyway.url>
+        <flyway.locations>classpath:db/migration/v1</flyway.locations>
     </properties>
 
     <dependencies>
@@ -127,6 +131,13 @@
             <version>${flyway.version}</version>
         </dependency>
 
+        <!-- BROKER  -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>3.3.11</version>
+        </dependency>
+
         <dependency>
             <groupId>ru.otus</groupId>
             <artifactId>shared</artifactId>
@@ -157,6 +168,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.17.0</version>
             </plugin>
             <plugin>
                 <groupId>org.openapitools</groupId>

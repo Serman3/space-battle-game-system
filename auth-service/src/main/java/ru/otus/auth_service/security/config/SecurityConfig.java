@@ -24,7 +24,6 @@ import ru.otus.auth_service.security.token.refresh.RefreshTokenJweStringSerializ
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.shared.security.access.AccessTokenJwsStringDeserializer;
 import ru.otus.shared.security.refresh.RefreshTokenJweStringDeserializer;
-import ru.otus.shared.service.GameService;
 
 import java.text.ParseException;
 
@@ -32,13 +31,10 @@ import java.text.ParseException;
 public class SecurityConfig {
 
     private final UserAuthService userAuthService;
-    private final GameService gameService;
 
     @Autowired
-    public SecurityConfig(UserAuthService userAuthService,
-                          GameService gameService) {
+    public SecurityConfig(UserAuthService userAuthService) {
         this.userAuthService = userAuthService;
-        this.gameService = gameService;
     }
 
     @Bean
@@ -60,8 +56,7 @@ public class SecurityConfig {
                 .refreshTokenStringDeserializer(new RefreshTokenJweStringDeserializer(
                         new DirectDecrypter(OctetSequenceKey.parse(refreshTokenKey))
                 ))
-                .userAuthService(userAuthService)
-                .gameService(gameService);
+                .userAuthService(userAuthService);
     }
 
     @Bean

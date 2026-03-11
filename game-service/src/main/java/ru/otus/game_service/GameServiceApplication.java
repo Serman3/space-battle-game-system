@@ -13,14 +13,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 @EnableFeignClients
 @ComponentScan(basePackages = {
+        "ru.otus.*",
         "ru.otus.game_service.*",
         "ru.otus.shared.*"
 })
 @EntityScan(basePackages = {
-        "ru.otus.shared.datasource.entity"
+        "ru.otus.game_service.datasource.entity"
 })
 @EnableJpaRepositories(basePackages = {
-        "ru.otus.shared.datasource.repository"
+        "ru.otus.game_service.datasource.repository"
 })
 @SpringBootApplication
 public class GameServiceApplication {

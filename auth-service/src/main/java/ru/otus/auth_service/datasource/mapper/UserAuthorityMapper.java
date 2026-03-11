@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.otus.auth_service.datasource.dto.UserAuthorityDto;
 import ru.otus.auth_service.datasource.entity.UserAuthorityEntity;
 import ru.otus.auth_service.datasource.repository.UserRepository;
+import ru.otus.shared.mapper.Mapper;
 
 @Component
 public class UserAuthorityMapper implements Mapper<UserAuthorityDto, UserAuthorityEntity> {

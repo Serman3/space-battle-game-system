@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.otus.auth_service.datasource.dto.UserDto;
 import ru.otus.auth_service.datasource.entity.UserEntity;
+import ru.otus.shared.mapper.Mapper;
 
 @Component
 public class UserMapper implements Mapper<UserDto, UserEntity> {

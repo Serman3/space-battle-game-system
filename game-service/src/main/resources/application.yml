@@ -17,10 +17,54 @@ spring:
   application:
     name: game-service
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5433}/game
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  flyway:
+    user: postgres
+    password: postgres
+    enabled: true
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      org.hibernate:
+        envers:
+          autoRegisterListeners: true
+          audit_table_suffix: _history
+          default_schema: person_game_history
+          store_data_at_delete: true
+          revision_field_name: revision
+          revision_type_field_name: revision_type
+          revision_sequence_name: person_game_history.revinfo_seq
+        hibernate:
+          default_schema: person_game
+          show_sql: ${SHOW_SQL:true}
+          format_sql: ${FORMAT_SQL:true}
+          highlight_sql: ${HIGHLIGHT_SQL:true}
+          session.events.log.LOG_QUERIES_SLOWER_THAN_MS: ${SLOW_SQL_QUERY_INDICATOR_MS:1500}
+          hbm2ddl:
+            auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+  kafka:
+    bootstrap-servers: localhost:29092,localhost:39092,localhost:49092
+    consumer:
+      group-id: user_event_group
+      auto-offset-reset: earliest
+
+kafka:
+  topics:
+    users:
+      events:
+        topic:
+          name: user_registered_event_topic
 
 eureka:
   client:
@@ -75,7 +119,7 @@ spring:
             readTimeout: 30000
             logger-level: full
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/person
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5433}/game
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

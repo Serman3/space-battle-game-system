@@ -7,11 +7,7 @@
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>{"%boldWhite(timestamp)":"%green(%d{ISO8601,Europe/Moscow})", "%boldWhite(thread)":"%blue(%thread)",
-                      "%boldWhite(trace_id)": "%red(%X{trace_id})", "%boldWhite(span_id)":"%red(%X{span_id})",
-                      "%boldWhite(logger)":"%yellow(%C)", "%boldWhite(level)":"%highlight(%-5level)",
-                      "%boldWhite(message)":"%msg%n%throwable{full}"}%n
-            </pattern>
+            <pattern>%boldWhite(%d{ISO8601,Europe/Moscow}) %highlight(%-5level) [%blue(%t)] %boldWhite(trace_id)[%red(%X{trace_id})] %boldWhite(span_id)[%red(%X{span_id})] %yellow(%C): %msg%n%throwable{full}</pattern>
         </layout>
     </appender>
 

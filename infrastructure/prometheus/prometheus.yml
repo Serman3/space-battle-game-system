@@ -49,7 +49,11 @@ scrape_configs:
 
   - job_name: person-postgres
     static_configs:
-      - targets: [ 'person-postgres-exporter:9187' ]
+      - targets: [ 'person-postgres-exporter:9188' ]
+
+  - job_name: game-postgres
+    static_configs:
+      - targets: [ 'game-postgres-exporter:9189' ]
 
   - job_name: tempo
     metrics_path: /metrics
