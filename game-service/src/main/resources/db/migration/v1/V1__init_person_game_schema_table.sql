@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS person_game.t_game
     active       BOOLEAN                     NOT NULL DEFAULT TRUE,
     created      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-    id_game      VARCHAR                     NOT NULL UNIQUE
+    id_game      VARCHAR                     NOT NULL UNIQUE,
+    status       VARCHAR                     NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS person_game.t_game_event
@@ -22,9 +23,9 @@ CREATE TABLE IF NOT EXISTS person_game.t_game_event
     active       BOOLEAN                     NOT NULL DEFAULT TRUE,
     created      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-    id_game      INTEGER                     NOT NULL REFERENCES person_game.t_game (id),
+    game_id      UUID                        NOT NULL,
     status       VARCHAR                     NOT NULL,
-    UNIQUE (id_game, status)
+    UNIQUE (game_id, status)
 );
 
 CREATE TABLE IF NOT EXISTS person_game.t_active_game

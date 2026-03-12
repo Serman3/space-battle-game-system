@@ -96,7 +96,7 @@ paths:
             schema:
               $ref: '#/components/schemas/OrganaizeSpaceBattleRequestDto'
       responses:
-        '200':
+        '202':
           description: Успешно организовали космический бой для указанных пользователей
           content:
             application/json:

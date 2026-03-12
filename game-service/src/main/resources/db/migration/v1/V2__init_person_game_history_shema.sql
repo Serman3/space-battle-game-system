@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS person_game_history.t_game_event_history
     active        BOOLEAN                     NOT NULL DEFAULT TRUE,
     created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-    id_game       INTEGER                     NOT NULL,
+    game_id       UUID                        NOT NULL,
     status        VARCHAR                     NOT NULL,
 
     CONSTRAINT pk_t_game_event_history     PRIMARY KEY (id, revision),

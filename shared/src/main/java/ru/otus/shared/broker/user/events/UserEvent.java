@@ -1,4 +1,4 @@
-package ru.otus.shared.broker.event.user;
+package ru.otus.shared.broker.user.events;
 
 public interface UserEvent {
 

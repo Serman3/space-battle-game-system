@@ -75,6 +75,10 @@ kafka:
       events:
         topic:
           name: user_registered_event_topic
+    games:
+      events:
+        topic:
+          name: game_events_topic
 
 resilience4j:
   timelimiter:

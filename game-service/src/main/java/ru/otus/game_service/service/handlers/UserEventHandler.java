@@ -1,4 +1,4 @@
-package ru.otus.game_service.broker.consumers;
+package ru.otus.game_service.service.handlers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,14 +7,14 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import ru.otus.game_service.datasource.dto.UserDto;
 import ru.otus.game_service.service.UserService;
-import ru.otus.shared.broker.event.user.UserCancelledEvent;
-import ru.otus.shared.broker.event.user.UserCreatedEvent;
+import ru.otus.shared.broker.user.events.UserCancelledEvent;
+import ru.otus.shared.broker.user.events.UserCreatedEvent;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 @KafkaListener(id = "${spring.kafka.consumer.group-id}", topics = "${kafka.topics.users.events.topic.name}")
-public class UserEventConsumer {
+public class UserEventHandler {
 
     private final UserService userService;
 

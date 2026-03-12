@@ -18,11 +18,13 @@ public class KafkaConfig extends DefaultKafkaConfig {
     private static final Integer TOPIC_REPLICATION_FACTOR = 3;
     private static final Integer TOPIC_PARTITIONS = 3;
     private final String usersEventsTopicName;
+    private final String gamesEventsTopicName;
 
     @Autowired
     public KafkaConfig(Environment environment) {
         super(Arrays.stream(environment.getProperty("spring.kafka.bootstrap-servers").split(",")).toList());
         this.usersEventsTopicName = environment.getProperty("kafka.topics.users.events.topic.name");
+        this.gamesEventsTopicName = environment.getProperty("kafka.topics.games.events.topic.name");
     }
 
     @Bean
@@ -39,6 +41,14 @@ public class KafkaConfig extends DefaultKafkaConfig {
     @Bean
     public NewTopic usersEventsTopic() {
         return TopicBuilder.name(usersEventsTopicName)
+                .partitions(TOPIC_PARTITIONS)
+                .replicas(TOPIC_REPLICATION_FACTOR)
+                .build();
+    }
+
+    @Bean
+    public NewTopic gamesEventsTopic() {
+        return TopicBuilder.name(gamesEventsTopicName)
                 .partitions(TOPIC_PARTITIONS)
                 .replicas(TOPIC_REPLICATION_FACTOR)
                 .build();

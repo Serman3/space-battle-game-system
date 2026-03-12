@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import ru.otus.shared.utils.GameStatus;
 
-import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Getter
@@ -20,12 +21,11 @@ public class GameEventEntity extends BaseEntity {
     @Column(name = "id", nullable = false, columnDefinition="serial")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_game", nullable = false)
-    private GameEntity game;
+    @Column(name = "game_id", nullable = false, unique = true)
+    private UUID gameId;
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private GameStatus status;
 
 }

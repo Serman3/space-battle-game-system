@@ -1,4 +1,4 @@
-package ru.otus.shared.broker.event.user;
+package ru.otus.shared.broker.user.events;
 
 import ru.otus.shared.utils.UserStatus;
 

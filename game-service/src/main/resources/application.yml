@@ -69,6 +69,13 @@ kafka:
       events:
         topic:
           name: user_registered_event_topic
+    games:
+      events:
+        topic:
+          name: game_events_topic
+      commands:
+        topic:
+          name: game_commands_topic
 
 eureka:
   client:

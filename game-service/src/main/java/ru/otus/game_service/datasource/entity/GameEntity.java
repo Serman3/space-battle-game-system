@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+import ru.otus.shared.utils.GameStatus;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,4 +24,8 @@ public class GameEntity extends BaseEntity {
     @NotNull
     @Column(name = "id_game", nullable = false, unique = true)
     private String idGame;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private GameStatus status;
 }

@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.otus.auth_service.datasource.entity.UserOutboxEventEntity;
 import ru.otus.auth_service.datasource.repository.UserOutboxRepository;
-import ru.otus.shared.broker.event.user.UserEvent;
-import ru.otus.shared.broker.event.user.UserEventFactory;
+import ru.otus.shared.broker.user.events.UserEvent;
+import ru.otus.shared.broker.user.events.UserEventFactory;
 
 import java.util.List;
 

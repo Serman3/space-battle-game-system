@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.otus.game_service.datasource.entity.GameEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GameRepository extends JpaRepository<GameEntity, Integer> {
@@ -18,4 +19,6 @@ public interface GameRepository extends JpaRepository<GameEntity, Integer> {
             where g.id_game = :gameId
             """, nativeQuery = true)
     List<String> findAllUsersByGameId(@Param("gameId") String gameId);
+
+    Optional<GameEntity> findByIdGame(String idGame);
 }
