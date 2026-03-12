@@ -14,12 +14,30 @@ CREATE TABLE IF NOT EXISTS person_history.t_user_history
     updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     username      VARCHAR                     NOT NULL,
     password      VARCHAR                     NOT NULL,
+    status        VARCHAR                     NOT NULL,
 
     CONSTRAINT pk_t_user_history     PRIMARY KEY (id, revision),
     CONSTRAINT fk_t_user_history_rev FOREIGN KEY (revision) REFERENCES person_history.revinfo (rev)
 );
 
 CREATE INDEX IF NOT EXISTS idx_t_user_history_revision ON person_history.t_user_history (revision);
+
+CREATE TABLE IF NOT EXISTS person_history.t_user_outbox_history
+(
+    id            UUID                        NOT NULL,
+    revision      BIGINT                      NOT NULL,
+    revision_type SMALLINT                    NOT NULL,
+    active        BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    event_payload VARCHAR                     NOT NULL,
+    event_type    VARCHAR                     NOT NULL,
+
+    CONSTRAINT pk_t_user_outbox_history     PRIMARY KEY (id, revision),
+    CONSTRAINT fk_t_user_outbox_history_rev FOREIGN KEY (revision) REFERENCES person_history.revinfo (rev)
+);
+
+CREATE INDEX IF NOT EXISTS idx_t_user_outbox_history_revision ON person_history.t_user_outbox_history (revision);
 
 CREATE TABLE IF NOT EXISTS person_history.t_user_authority_history
 (

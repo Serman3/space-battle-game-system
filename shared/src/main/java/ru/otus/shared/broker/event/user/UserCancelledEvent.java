@@ -1,4 +1,4 @@
-package ru.otus.shared.broker.event;
+package ru.otus.shared.broker.event.user;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserRegisteredEvent {
+public class UserCancelledEvent implements UserEvent {
 
     private String username;
 

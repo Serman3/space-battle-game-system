@@ -8,7 +8,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.*;
 import ru.otus.shared.broker.config.DefaultKafkaConfig;
-import ru.otus.shared.broker.event.UserRegisteredEvent;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -27,18 +26,18 @@ public class KafkaConfig extends DefaultKafkaConfig {
     }
 
     @Bean
-    public ProducerFactory<String, UserRegisteredEvent> userRegisteredEventProducerFactory() {
+    public ProducerFactory<String, Object> producerFactory() {
         Map<String, Object> producerConfigProps = producerConfig();
         return new DefaultKafkaProducerFactory<>(producerConfigProps);
     }
 
     @Bean
-    public KafkaTemplate<String, UserRegisteredEvent> userRegisteredkafkaTemplate() {
-        return new KafkaTemplate<>(userRegisteredEventProducerFactory());
+    public KafkaTemplate<String, Object> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
-    public NewTopic usersRegisteredEventsTopic() {
+    public NewTopic usersEventsTopic() {
         return TopicBuilder.name(usersEventsTopicName)
                 .partitions(TOPIC_PARTITIONS)
                 .replicas(TOPIC_REPLICATION_FACTOR)

@@ -4,5 +4,7 @@ import ru.otus.game_service.datasource.dto.UserDto;
 
 public interface UserService {
 
-    void saveUser(UserDto userDto);
+    void createUser(UserDto userDto);
+
+    void cancelledUser(UserDto userDto);
 }

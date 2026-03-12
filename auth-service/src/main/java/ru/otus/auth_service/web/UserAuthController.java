@@ -14,7 +14,7 @@ import ru.otus.auth_service.openapi.api.AuthApi;
 import ru.otus.auth_service.openapi.model.*;
 import ru.otus.auth_service.service.UserAuthService;
 import ru.otus.auth_service.validation.UserRegistrationValidator;
-import ru.otus.shared.util.BasicAuthUtil;
+import ru.otus.shared.utils.BasicAuthUtil;
 
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public class UserAuthController implements AuthApi {
     @Override
     public ResponseEntity<String> register(RegistrationRequestDto registrationRequestDto) {
         userRegistrationValidator.validate(registrationRequestDto, null);
-        userAuthService.addUser(new UserDto(registrationRequestDto.getUsername(), registrationRequestDto.getPassword()));
+        userAuthService.createUser(new UserDto(registrationRequestDto.getUsername(), registrationRequestDto.getPassword()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

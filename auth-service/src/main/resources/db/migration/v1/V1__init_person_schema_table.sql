@@ -5,7 +5,18 @@ CREATE TABLE IF NOT EXISTS person.t_user
     created  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     username VARCHAR                     NOT NULL UNIQUE,
-    password VARCHAR                     NOT NULL
+    password VARCHAR                     NOT NULL,
+    status   VARCHAR                     NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS person.t_user_outbox
+(
+    id            UUID                        PRIMARY KEY,
+    active        BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    event_payload VARCHAR                     NOT NULL,
+    event_type    VARCHAR                     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS person.t_user_authority

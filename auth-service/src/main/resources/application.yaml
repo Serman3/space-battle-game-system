@@ -9,6 +9,9 @@ logging:
   config: "classpath:logback.xml"
   level:
     sql: debug
+    org.springframework.jdbc.core: trace
+    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.SQL: debug
     org.springframework.security: trace
     ru.otus.auth_service.api.client.JwtClient: debug
 
@@ -66,6 +69,7 @@ spring:
     bootstrap-servers: localhost:29092,localhost:39092,localhost:49092
 
 kafka:
+  scheduled: 5000
   topics:
     users:
       events:

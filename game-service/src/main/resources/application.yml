@@ -9,6 +9,8 @@ logging:
   level:
     sql: debug
     org.springframework.jdbc.core: trace
+    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.SQL: debug
     org.springframework.security: trace
 
 spring:
@@ -56,8 +58,10 @@ spring:
   kafka:
     bootstrap-servers: localhost:29092,localhost:39092,localhost:49092
     consumer:
+      properties:
+        spring.json.trusted.packages: "ru.otus.*"
       group-id: user_event_group
-      auto-offset-reset: earliest
+#      auto-offset-reset: earliest
 
 kafka:
   topics:

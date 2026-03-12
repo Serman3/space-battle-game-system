@@ -1,5 +1,5 @@
-INSERT INTO person.t_user(username, password)
-SELECT 'j.jameson', '{noop}password'
+INSERT INTO person.t_user(username, password, status)
+SELECT 'j.jameson', '{noop}password', 'CREATED'
 WHERE NOT EXISTS (
     SELECT 1
     FROM person.t_user

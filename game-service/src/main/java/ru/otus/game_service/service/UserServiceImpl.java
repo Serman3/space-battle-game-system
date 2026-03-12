@@ -9,6 +9,7 @@ import ru.otus.game_service.datasource.mapper.UserMapper;
 import ru.otus.game_service.datasource.repository.UserRepository;
 
 import java.time.Instant;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(UserDto userDto) {
-        UserEntity userEntity = userMapper.mapToEntity(userDto);
-        userEntity.setActive(true);
-        userEntity.setUpdated(Instant.now());
-        userEntity.setCreated(Instant.now());
+    public void createUser(UserDto userDto) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(userDto.getUsername());
 
-        userRepository.save(userEntity);
+        if (userEntityOptional.isEmpty()) {
+            UserEntity userEntity = userMapper.mapToEntity(userDto);
+            userEntity.setActive(true);
+            userEntity.setUpdated(Instant.now());
+            userEntity.setCreated(Instant.now());
+
+            userRepository.save(userEntity);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void cancelledUser(UserDto userDto) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(userDto.getUsername());
+        userEntityOptional.ifPresent(userEntity -> {
+            userRepository.deleteById(userEntity.getId());
+        });
     }
 }

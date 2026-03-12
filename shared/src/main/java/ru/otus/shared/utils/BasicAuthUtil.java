@@ -1,4 +1,4 @@
-package ru.otus.shared.util;
+package ru.otus.shared.utils;
 
 import java.util.Base64;
 
