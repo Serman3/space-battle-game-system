@@ -15,7 +15,8 @@ import ru.otus.game_service.datasource.repository.UserRepository;
 import ru.otus.game_service.ex.GameProcessingException;
 import ru.otus.game_service.saga.events.GameApprovedEvent;
 import ru.otus.game_service.saga.events.GameCreatedEvent;
-import ru.otus.shared.utils.GameStatus;
+import ru.otus.game_service.saga.events.GameRejectedEvent;
+import ru.otus.game_service.utils.GameStatus;
 
 import java.time.Instant;
 import java.util.List;
@@ -76,10 +77,15 @@ public class GameServiceImpl implements GameService {
                 .filter(Objects::nonNull)
                 .toList();
 
-        activeGameRepository.saveAll(activeGameEntityList);
+        if (users.isEmpty()) {
+            kafkaTemplate.send(new ProducerRecord<>(gameEventTopicName, new GameRejectedEvent(gameId)));
+            return null;
+        } else {
+            activeGameRepository.saveAll(activeGameEntityList);
 
-        kafkaTemplate.send(new ProducerRecord<>(gameEventTopicName, new GameCreatedEvent(gameId, users)));
-        return gameId.toString();
+            kafkaTemplate.send(new ProducerRecord<>(gameEventTopicName, new GameCreatedEvent(gameId, users)));
+            return gameId.toString();
+        }
     }
 
     @Override

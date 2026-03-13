@@ -1,6 +1,6 @@
 package ru.otus.game_service.saga;
 
-import org.springframework.beans.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.kafka.annotation.KafkaHandler;
@@ -16,8 +16,9 @@ import ru.otus.game_service.saga.events.GameApprovedEvent;
 import ru.otus.game_service.saga.events.GameCreatedEvent;
 import ru.otus.shared.broker.game.events.GameOrganizedEvent;
 import ru.otus.game_service.saga.events.GameRejectedEvent;
-import ru.otus.shared.utils.GameStatus;
+import ru.otus.game_service.utils.GameStatus;
 
+@Slf4j
 @KafkaListener(topics = {
         "${kafka.topics.games.events.topic.name}"
 })
@@ -39,8 +40,8 @@ public class GameSaga {
 
     @KafkaHandler
     public void handleEvent(@Payload GameOrganizedEvent event) {
-        CreateGameCommand createGameCommand = new CreateGameCommand();
-        BeanUtils.copyProperties(event, createGameCommand);
+        log.info("Received message for game organize event: {}", event);
+        CreateGameCommand createGameCommand = new CreateGameCommand(event.getGameId(), event.getUsers());
 
         kafkaTemplate.send(gameCommandTopicName, createGameCommand);
         gameEventService.addEvent(event.getGameId(), GameStatus.ORGANIZE);
@@ -48,6 +49,7 @@ public class GameSaga {
 
     @KafkaHandler
     public void handleEvent(@Payload GameCreatedEvent event) {
+        log.info("Received message for game created event: {}", event);
         ApproveGameCommand approveGameCommand = new ApproveGameCommand(event.getGameId());
 
         kafkaTemplate.send(gameCommandTopicName, approveGameCommand);
@@ -56,11 +58,13 @@ public class GameSaga {
 
     @KafkaHandler
     public void handleEvent(@Payload GameApprovedEvent event) {
+        log.info("Received message for game approved event: {}", event);
         gameEventService.addEvent(event.getGameId(), GameStatus.APPROVED);
     }
 
     @KafkaHandler
     public void handleEvent(@Payload GameRejectedEvent event) {
+        log.info("Received message for game rejected event: {}", event);
         RejectGameCommand rejectGameCommand = new RejectGameCommand(event.getGameId());
 
         kafkaTemplate.send(gameCommandTopicName, rejectGameCommand);

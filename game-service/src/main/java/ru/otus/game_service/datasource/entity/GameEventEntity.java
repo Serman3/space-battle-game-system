@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
-import ru.otus.shared.utils.GameStatus;
+import ru.otus.game_service.utils.GameStatus;
 
 import java.util.UUID;
 
@@ -21,7 +21,7 @@ public class GameEventEntity extends BaseEntity {
     @Column(name = "id", nullable = false, columnDefinition="serial")
     private Integer id;
 
-    @Column(name = "game_id", nullable = false, unique = true)
+    @Column(name = "id_game", nullable = false, unique = true)
     private UUID gameId;
 
     @Enumerated(EnumType.STRING)

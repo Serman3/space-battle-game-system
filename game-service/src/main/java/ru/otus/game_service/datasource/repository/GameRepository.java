@@ -17,6 +17,7 @@ public interface GameRepository extends JpaRepository<GameEntity, Integer> {
             from person_game.t_active_game ag
             join person_game.t_game g on g.id = ag.id_game
             where g.id_game = :gameId
+            and g.status = 'APPROVED'
             """, nativeQuery = true)
     List<String> findAllUsersByGameId(@Param("gameId") String gameId);
 

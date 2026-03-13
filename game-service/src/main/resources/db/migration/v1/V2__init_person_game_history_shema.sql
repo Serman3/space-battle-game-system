@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS person_game_history.t_game_history
     created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     id_game       VARCHAR                     NOT NULL,
+    status        VARCHAR                     NOT NULL,
 
     CONSTRAINT pk_t_game_history     PRIMARY KEY (id, revision),
     CONSTRAINT fk_t_game_history_rev FOREIGN KEY (revision) REFERENCES person_game_history.revinfo (rev)
@@ -44,7 +45,7 @@ CREATE TABLE IF NOT EXISTS person_game_history.t_game_event_history
     active        BOOLEAN                     NOT NULL DEFAULT TRUE,
     created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
     updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-    game_id       UUID                        NOT NULL,
+    id_game       UUID                        NOT NULL,
     status        VARCHAR                     NOT NULL,
 
     CONSTRAINT pk_t_game_event_history     PRIMARY KEY (id, revision),

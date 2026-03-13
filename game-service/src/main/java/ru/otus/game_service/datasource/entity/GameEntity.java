@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
-import ru.otus.shared.utils.GameStatus;
+import ru.otus.game_service.utils.GameStatus;
 
 import javax.validation.constraints.NotNull;
 

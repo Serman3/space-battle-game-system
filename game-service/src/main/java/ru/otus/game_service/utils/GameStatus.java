@@ -1,4 +1,4 @@
-package ru.otus.shared.utils;
+package ru.otus.game_service.utils;
 
 public enum GameStatus {
 

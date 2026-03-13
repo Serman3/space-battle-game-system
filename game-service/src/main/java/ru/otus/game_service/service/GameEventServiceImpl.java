@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.otus.game_service.datasource.entity.GameEventEntity;
 import ru.otus.game_service.datasource.repository.GameEventRepository;
-import ru.otus.shared.utils.GameStatus;
+import ru.otus.game_service.utils.GameStatus;
 
 import java.time.Instant;
 import java.util.UUID;
