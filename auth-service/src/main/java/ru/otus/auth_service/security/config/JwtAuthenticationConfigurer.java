@@ -12,6 +12,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.otus.auth_service.security.filter.JwtLogoutFilter;
 import ru.otus.auth_service.security.filter.RefreshTokenFilter;
+import ru.otus.auth_service.security.filter.RequestGameJwtTokensFilter;
 import ru.otus.auth_service.security.filter.RequestJwtTokensFilter;
 import ru.otus.auth_service.security.token.TokenAuthenticationUserDetailsService;
 import ru.otus.auth_service.service.UserAuthService;
@@ -42,6 +43,10 @@ public class JwtAuthenticationConfigurer extends AbstractHttpConfigurer<JwtAuthe
 
     @Override
     public void configure(HttpSecurity builder) throws Exception {
+        var requestGameJwtTokensFilter = new RequestGameJwtTokensFilter();
+        requestGameJwtTokensFilter.setAccessTokenStringSerializer(this.accessTokenStringSerializer);
+        requestGameJwtTokensFilter.setRefreshTokenStringSerializer(this.refreshTokenStringSerializer);
+
         var requestJwtTokensFilter = new RequestJwtTokensFilter();
         requestJwtTokensFilter.setAccessTokenStringSerializer(this.accessTokenStringSerializer);
         requestJwtTokensFilter.setRefreshTokenStringSerializer(this.refreshTokenStringSerializer);
@@ -64,6 +69,7 @@ public class JwtAuthenticationConfigurer extends AbstractHttpConfigurer<JwtAuthe
 
         builder
                 .addFilterAfter(requestJwtTokensFilter, ExceptionTranslationFilter.class)
+                .addFilterBefore(requestGameJwtTokensFilter, RequestJwtTokensFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, CsrfFilter.class)
                 .addFilterAfter(refreshTokenFilter, ExceptionTranslationFilter.class)
                 .addFilterAfter(jwtLogoutFilter, ExceptionTranslationFilter.class)

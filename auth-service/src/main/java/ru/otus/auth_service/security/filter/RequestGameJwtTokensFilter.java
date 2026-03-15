@@ -1,10 +1,11 @@
-package ru.otus.game_service.security.filter;
+package ru.otus.auth_service.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -13,7 +14,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.otus.game_service.service.GameService;
 import ru.otus.shared.security.token.Tokens;
 import ru.otus.shared.security.access.DefaultAccessTokenFactory;
 import ru.otus.shared.security.refresh.DefaultRefreshTokenFactory;
@@ -27,7 +27,7 @@ import java.util.function.Function;
 
 public class RequestGameJwtTokensFilter extends OncePerRequestFilter {
 
-    private RequestMatcher requestMatcher = new AntPathRequestMatcher("/v1/game/**");
+    private RequestMatcher requestMatcher = new AntPathRequestMatcher("/jwt/tokens", HttpMethod.POST.name());
 
     private SecurityContextRepository securityContextRepository = new RequestAttributeSecurityContextRepository();
 
@@ -41,8 +41,6 @@ public class RequestGameJwtTokensFilter extends OncePerRequestFilter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private GameService gameService;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
@@ -51,7 +49,7 @@ public class RequestGameJwtTokensFilter extends OncePerRequestFilter {
                 var context = this.securityContextRepository.loadDeferredContext(request).get();
                 if (context != null && !(context.getAuthentication() instanceof PreAuthenticatedAuthenticationToken)) {
                     String gameId = request.getHeader("gameId");
-                    if (gameId != null && !gameId.isBlank() && gameService.getUsersByGameId(gameId).contains(context.getAuthentication().getName())) {
+                    if (gameId != null && !gameId.isBlank()) {
                         var refreshToken = this.refreshTokenFactory.apply(context.getAuthentication(), request);
                         var accessToken = this.accessTokenFactory.apply(refreshToken);
 
@@ -100,10 +98,6 @@ public class RequestGameJwtTokensFilter extends OncePerRequestFilter {
 
     public void setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-    }
-
-    public void setGameService(GameService gameService) {
-        this.gameService = gameService;
     }
 
 }

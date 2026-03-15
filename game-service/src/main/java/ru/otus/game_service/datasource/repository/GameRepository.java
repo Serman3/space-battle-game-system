@@ -13,9 +13,10 @@ import java.util.Optional;
 public interface GameRepository extends JpaRepository<GameEntity, Integer> {
 
     @Query(value = """
-            select ag.id_user
+            select u.username
             from person_game.t_active_game ag
             join person_game.t_game g on g.id = ag.id_game
+            join person_game.t_user u on ag.id_user = u.id
             where g.id_game = :gameId
             and g.status = 'APPROVED'
             """, nativeQuery = true)

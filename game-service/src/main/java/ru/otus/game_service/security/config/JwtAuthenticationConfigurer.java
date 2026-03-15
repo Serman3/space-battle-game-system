@@ -4,7 +4,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.otus.game_service.security.filter.JwtVerifierFilter;
-import ru.otus.game_service.security.filter.RequestGameJwtTokensFilter;
 import ru.otus.game_service.service.GameService;
 import ru.otus.shared.security.JwtAuthenticationConverter;
 import ru.otus.shared.security.token.Token;
@@ -20,22 +19,17 @@ public class JwtAuthenticationConfigurer extends AbstractHttpConfigurer<JwtAuthe
     private Function<String, Token> accessTokenStringDeserializer;
 
     private Function<String, Token> refreshTokenStringDeserializer;
-
     private GameService gameService;
+
 
     @Override
     public void configure(HttpSecurity builder) throws Exception {
-        var requestGameJwtTokensFilter = new RequestGameJwtTokensFilter();
-        requestGameJwtTokensFilter.setAccessTokenStringSerializer(this.accessTokenStringSerializer);
-        requestGameJwtTokensFilter.setRefreshTokenStringSerializer(this.refreshTokenStringSerializer);
-        requestGameJwtTokensFilter.setGameService(gameService);
-
         var jwtVerifierFilter = new JwtVerifierFilter()
-                .setJwtAuthenticationConverter(new JwtAuthenticationConverter(this.accessTokenStringDeserializer, this.refreshTokenStringDeserializer));
+                .setJwtAuthenticationConverter(new JwtAuthenticationConverter(this.accessTokenStringDeserializer, this.refreshTokenStringDeserializer))
+                .setGameService(gameService);
 
         builder
-                .addFilterBefore(requestGameJwtTokensFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(jwtVerifierFilter, RequestGameJwtTokensFilter.class);
+                .addFilterAfter(jwtVerifierFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     public JwtAuthenticationConfigurer accessTokenStringDeserializer(
@@ -62,8 +56,8 @@ public class JwtAuthenticationConfigurer extends AbstractHttpConfigurer<JwtAuthe
         return this;
     }
 
-    public JwtAuthenticationConfigurer gameService(GameService service) {
-        this.gameService = service;
+    public JwtAuthenticationConfigurer gameService(GameService gameService) {
+        this.gameService = gameService;
         return this;
     }
 }

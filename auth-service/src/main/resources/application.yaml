@@ -69,7 +69,7 @@ spring:
     bootstrap-servers: localhost:29092,localhost:39092,localhost:49092
 
 kafka:
-  scheduled: 5000
+  scheduled: 1000
   topics:
     users:
       events:

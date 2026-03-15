@@ -15,6 +15,7 @@ import ru.otus.game_service.api.dto.RegistrationRequest;
 import ru.otus.game_service.openapi.model.OrderRequestDto;
 import ru.otus.game_service.openapi.model.OrderResponseDto;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameTest {
 
     private static final Map<String, String> CREDENTIALS = Map.of(
-            "username1", "password1",
-            "username2", "password2"
+            "username1_" + Instant.now().getEpochSecond(), "password1",
+            "username2_" + Instant.now().getEpochSecond(), "password2"
     );
 
     @Autowired
@@ -39,8 +40,9 @@ public class GameTest {
     private final Map<String, String> userToken = new HashMap<>();
 
     @BeforeAll
-    public static void init(@Autowired AuthServiceClient authServiceClient) {
+    public static void init(@Autowired AuthServiceClient authServiceClient) throws InterruptedException {
         CREDENTIALS.forEach((key, value) -> authServiceClient.register(new RegistrationRequest(key, value)));
+        Thread.sleep(5000);
     }
 
     @BeforeEach
@@ -66,7 +68,8 @@ public class GameTest {
     }
 
     @Test
-    public void orderActionTest() {
+    public void orderActionTest() throws InterruptedException {
+        Thread.sleep(30000);
         userToken.forEach((key, value) -> {
             String token = "Bearer " + value;
 

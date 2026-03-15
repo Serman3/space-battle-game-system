@@ -50,53 +50,53 @@ services:
       timeout: 5s
       retries: 20
 
-#  auth-service:
-#    build: ./auth-service
-#    container_name: auth-service
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://person-postgres:5432/person
-#      EUREKA_URI: http://discovery-service:8761/eureka
-#      POSTGRES_HOST: person-postgres
-#      POSTGRES_PORT: 5432
-#      OTLP_EXPORTER_ENDPOINT: http://tempo:4318
-#    ports:
-#      - "8092:8092"
-#    depends_on:
-#      discovery-service:
-#        condition: service_healthy
-#      person-postgres:
-#        condition: service_healthy
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://auth-service:8092/actuator/health" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
-#      start_period: 10s
-#
-#  game-service:
-#    build: ./game-service
-#    container_name: game-service
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://game-postgres:5433/person
-#      EUREKA_URI: http://discovery-service:8761/eureka
-#      POSTGRES_HOST: game-postgres
-#      POSTGRES_PORT: 5433
-#      OTLP_EXPORTER_ENDPOINT: http://tempo:4318
-#    ports:
-#      - "8093:8093"
-#    depends_on:
-#      discovery-service:
-#        condition: service_healthy
-#      auth-service:
-#        condition: service_healthy
-#      game-postgres:
-#        condition: service_healthy
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://game-service:8093/actuator/health" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
-#      start_period: 10s
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://person-postgres:5432/person
+      EUREKA_URI: http://discovery-service:8761/eureka
+      POSTGRES_HOST: person-postgres
+      POSTGRES_PORT: 5432
+      OTLP_EXPORTER_ENDPOINT: http://tempo:4318
+    ports:
+      - "8092:8092"
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+      person-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://auth-service:8092/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  game-service:
+    build: ./game-service
+    container_name: game-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://game-postgres:5433/person
+      EUREKA_URI: http://discovery-service:8761/eureka
+      POSTGRES_HOST: game-postgres
+      POSTGRES_PORT: 5433
+      OTLP_EXPORTER_ENDPOINT: http://tempo:4318
+    ports:
+      - "8093:8093"
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      game-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://game-service:8093/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   api-gateway-service:
     build: ./api-gateway
@@ -109,10 +109,10 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
-#      auth-service:
-#        condition: service_healthy
-#      game-service:
-#        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      game-service:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://api-gateway-service:8086/actuator/health" ]
       interval: 10s
@@ -243,6 +243,9 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    depends_on:
+      api-gateway-service:
+        condition: service_healthy
 
   controller-2:
     image: apache/kafka:latest
@@ -255,6 +258,9 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    depends_on:
+      api-gateway-service:
+        condition: service_healthy
 
   controller-3:
     image: apache/kafka:latest
@@ -267,6 +273,9 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    depends_on:
+      api-gateway-service:
+        condition: service_healthy
 
   broker-1:
     image: apache/kafka:latest
