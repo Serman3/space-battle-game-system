@@ -59,6 +59,7 @@ services:
       POSTGRES_HOST: person-postgres
       POSTGRES_PORT: 5432
       OTLP_EXPORTER_ENDPOINT: http://tempo:4318
+      KAFKA_BOOTSTRAP_SERVERS: broker-1:19092,broker-2:19092,broker-3:19092
     ports:
       - "8092:8092"
     depends_on:
@@ -77,11 +78,12 @@ services:
     build: ./game-service
     container_name: game-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://game-postgres:5433/person
+      SPRING_DATASOURCE_URL: jdbc:postgresql://game-postgres:5432/game
       EUREKA_URI: http://discovery-service:8761/eureka
       POSTGRES_HOST: game-postgres
-      POSTGRES_PORT: 5433
+      POSTGRES_PORT: 5432
       OTLP_EXPORTER_ENDPOINT: http://tempo:4318
+      KAFKA_BOOTSTRAP_SERVERS: broker-1:19092,broker-2:19092,broker-3:19092
     ports:
       - "8093:8093"
     depends_on:
@@ -140,7 +142,7 @@ services:
       game-postgres:
         condition: service_healthy
     environment:
-      DATA_SOURCE_NAME: postgresql://postgres:postgres@game-postgres:5433/postgres?sslmode=disable
+      DATA_SOURCE_NAME: postgresql://postgres:postgres@game-postgres:5432/postgres?sslmode=disable
     ports:
       - "9189:9187"
 
