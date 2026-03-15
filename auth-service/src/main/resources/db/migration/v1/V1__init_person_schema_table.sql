@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS person.t_user
+(
+    id       SERIAL                      PRIMARY KEY,
+    active   BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    username VARCHAR                     NOT NULL UNIQUE,
+    password VARCHAR                     NOT NULL,
+    status   VARCHAR                     NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS person.t_user_outbox
+(
+    id            UUID                        PRIMARY KEY,
+    active        BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated       TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    event_payload VARCHAR                     NOT NULL,
+    event_type    VARCHAR                     NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS person.t_user_authority
+(
+    id          SERIAL                      PRIMARY KEY,
+    active      BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated     TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    id_user     INTEGER                     NOT NULL REFERENCES person.t_user (id),
+    c_authority VARCHAR                     NOT NULL,
+    UNIQUE (id_user, c_authority)
+);
+
+CREATE TABLE IF NOT EXISTS person.t_deactivated_token
+(
+    id           UUID                        PRIMARY KEY,
+    active       BOOLEAN                     NOT NULL DEFAULT TRUE,
+    created      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    updated      TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+    c_keep_until TIMESTAMP WITHOUT TIME ZONE NOT NULL CHECK ( c_keep_until > now() )
+);

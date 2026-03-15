@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  title: Game API
+  description: REST API для взаимодействия с Game сервисом.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8082
+
+paths:
+  /v1/game/order:
+    post:
+      summary: Запрос приказа на действие с игровым объектом
+      operationId: "order"
+      tags:
+        - Game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDto'
+      responses:
+        '200':
+          description: Успешное выполнение приказа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponseDto'
+
+components:
+  schemas:
+
+    OrderResponseDto:
+      type: object
+      required: [
+        executedCommandUserId,
+        completedActionId,
+        gameObjectId,
+        propertiesGameObject
+      ]
+      properties:
+        executedCommandUserId:
+          type: string
+          example: username
+        completedActionId:
+          type: string
+          example: StartMove
+        gameObjectId:
+          type: string
+          example: 432
+        propertiesGameObject:
+          type: object # Указываем, что это объект
+          additionalProperties:
+              type: object
+              # Указываем, что значения внутри объекта могут быть любыми объектами
+              # Или можно использовать type: anyOf, но type: object более распространен для Map<String, Object>
+              # additionalProperties:
+              #   anyOf:
+              #     - type: string
+              #     - type: integer
+              #     - type: boolean
+              #     - type: number
+              #     - type: object
+              #     - type: array
+              #     - type: null
+
+    OrderRequestDto:
+      type: object
+      required: [
+        gameObjectId,
+        actionId,
+        args
+      ]
+      properties:
+        gameObjectId:
+          type: string
+          example: 550e8400-e29b-41d4-a716-446655440000
+        actionId:
+          type: string
+          example: StartMove
+        args:
+          type: object # Указываем, что это объект
+          additionalProperties:
+            type: object
+            # Указываем, что значения внутри объекта могут быть любыми объектами
+            # Или можно использовать type: anyOf, но type: object более распространен для Map<String, Object>
+            # additionalProperties:
+            #   anyOf:
+            #     - type: string
+            #     - type: integer
+            #     - type: boolean
+            #     - type: number
+            #     - type: object
+            #     - type: array
+            #     - type: null

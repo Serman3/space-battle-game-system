@@ -1,0 +1,61 @@
+# Глобальные интервалы
+global:
+  #  Как часто опрашивать цели
+  scrape_interval: 15s
+  # Как долго ждать ответ
+  scrape_timeout: 10s
+  # Как часто пересчитывать правила (recording/alerting)
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: [ "prometheus:9090" ]
+
+  - job_name: discovery-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'discovery-service:8761' ]
+
+  - job_name: api-gateway-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'api-gateway-service:8086' ]
+
+  - job_name: auth-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'auth-service:8092' ]
+
+  - job_name: game-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'game-service:8093' ]
+
+  - job_name: grafana
+    metrics_path: /metrics
+    static_configs:
+      - targets: [ 'grafana:3000' ]
+
+  - job_name: alloy
+    metrics_path: /metrics
+    static_configs:
+      - targets: [ 'alloy:9080' ]
+
+  - job_name: loki
+    metrics_path: /metrics
+    static_configs:
+      - targets: [ 'loki:3100' ]
+
+  - job_name: person-postgres
+    static_configs:
+      - targets: [ 'person-postgres-exporter:9188' ]
+
+  - job_name: game-postgres
+    static_configs:
+      - targets: [ 'game-postgres-exporter:9188' ]
+
+  - job_name: tempo
+    metrics_path: /metrics
+    static_configs:
+      - targets: [ 'tempo:3200' ]

@@ -1,0 +1,58 @@
+package ru.otus.game_service.game.command;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import ru.otus.shared.command.Command;
+import ru.otus.game_service.game.CommandFactory;
+import ru.otus.shared.model.UObject;
+import ru.otus.shared.storage.GameContext;
+
+import java.util.Map;
+
+@Component
+@Scope("prototype")
+public class InterpretCommand implements Command {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InterpretCommand.class);
+
+    private final String gameObjectId;
+    private final String userId;
+    private final String actionId;
+    private final Map<String, Object> args;
+    private final CommandFactory commandFactory;
+    private final GameContext gameContext;
+
+    public InterpretCommand(
+            String gameObjectId,
+            String userId,
+            String actionId,
+            Map<String, Object> args,
+            CommandFactory commandFactory,
+            GameContext gameContext) {
+        this.gameObjectId = gameObjectId;
+        this.userId = userId;
+        this.actionId = actionId;
+        this.args = args;
+        this.commandFactory = commandFactory;
+        this.gameContext = gameContext;
+    }
+
+    @Override
+    public void execute() {
+        try {
+            UObject gameObject = gameContext.getGameObject(userId, gameObjectId);
+            if (gameObject == null) {
+                throw new IllegalArgumentException("Game object not found: " + gameObjectId);
+            }
+
+            Command command = commandFactory.createCommand(actionId, gameObject, args);
+
+            gameContext.addCommand(userId, command);
+        } catch (Exception e) {
+            LOGGER.error("Error in InterpretCommand execution: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+}
